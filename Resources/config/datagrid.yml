@@ -5,6 +5,18 @@ datagrid:
         source:
             type: pim_orm
             entity: %pim_catalog.entity.vendor.class%
+        properties:
+            id: ~
+            edit_link:
+                type: custom_entity_url
+                route: pim_customentity_edit{customEntityName:vendor}
+                params:
+                    - id
+            delete_link:
+                type: custom_entity_url
+                route: pim_customentity_remove{customEntityName:vendor}
+                params:
+                    - id
         columns:
             code:
                 label: Code
@@ -18,6 +30,18 @@ datagrid:
             updated:
                 label: Updated
                 frontend_type: datetime
+        actions:
+            edit:
+                type:      navigate
+                label:     Edit
+                icon:      edit
+                link:      edit_link
+                rowAction: true
+            delete:
+                type:  delete
+                label: Delete
+                icon:  trash
+                link:  delete_link
         sorters:
             columns:
                 code:
