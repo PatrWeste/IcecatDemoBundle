@@ -1,14 +1,56 @@
-parameters:
-    pim_catalog.datagrid.manager.product.class: Pim\Bundle\IcecatDemoBundle\Datagrid\ProductDatagridManager
-    pim_catalog.datagrid.manager.association_product_datagrid.class: Pim\Bundle\IcecatDemoBundle\Datagrid\AssociationProductDatagridManager
-    pim_icecatdemo.datagrid.manager.vendor.class: Pim\Bundle\IcecatDemoBundle\Datagrid\VendorDatagridManager
-
-services:
-    pim_icecatdemo.datagrid.manager.vendor:
-            class: %pim_icecatdemo.datagrid.manager.vendor.class%
-            tags:
-                - name:               oro_grid.datagrid.manager
-                  datagrid_name:      vendors
-                  entity_hint:        vendors
-                  route_name:         pim_customentity_index
-                  custom_entity_name: vendor
+datagrid:
+    vendor-grid:
+        options:
+            entityHint: vendor
+        source:
+            type: pim_orm
+            entity: %pim_catalog.entity.vendor.class%
+        columns:
+            code:
+                label: Code
+            label:
+                label: Label
+            responsible:
+                label: Responsible
+            created:
+                label: Created
+                frontend_type: datetime
+            updated:
+                label: Updated
+                frontend_type: datetime
+        sorters:
+            columns:
+                code:
+                    data_name: o.code
+                label:
+                    data_name: o.label
+                responsible:
+                    data_name: o.responsible
+                created:
+                    data_name: o.created
+                updated:
+                    data_name: o.updated
+            default:
+                code: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_ASC
+        filters:
+            columns:
+                code:
+                    type:      string
+                    label:     Code
+                    data_name: o.code
+                label:
+                    type: string
+                    label: Label
+                    data_name: o.label
+                responsible:
+                    type: string
+                    label: Responsible
+                    data_name: o.responsible
+                created:
+                    type: datetime
+                    label: Created
+                    data_name: o.created
+                updated:
+                    type: datetime
+                    label: Updated
+                    data_name: o.updated
